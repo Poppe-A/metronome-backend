@@ -1,0 +1,8 @@
+You can start this project with 
+
+- python venv :
+    Install the requirements -> pip install -r requirements.txt
+    In the root of the app -> python run.py
+
+- Docker
+    In the root of the app -> docker-compose up -d
