@@ -2,7 +2,8 @@ from flask import Flask
 import os
 from flask_sqlalchemy import SQLAlchemy
 from app.config import Config
-from app.models import db, Sport
+from app.models import *
+from app.db_init import db
 
 
 
@@ -20,10 +21,13 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     with app.app_context():
+        #db.drop_all()
         db.create_all()
     from app.sports.routes import sports_routes
+    from app.user.routes import user_routes
 
     app.register_blueprint(sports_routes, url_prefix='/sports')
+    app.register_blueprint(user_routes, url_prefix='/user')
 
     @app.route('/', methods=['GET'])
     def home():
