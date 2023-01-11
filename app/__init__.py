@@ -1,36 +1,45 @@
 from flask import Flask
+from flask_login import LoginManager
 import os
 from flask_sqlalchemy import SQLAlchemy
-from app.config import Config
+import app.config as config
+from app.sports.routes import sports_routes
+from app.user.routes import user_routes
+from app.auth.routes import auth_routes
 from app.models import *
 from app.db_init import db
 
 
 
-def create_app(config_class=Config):
-    print('--- cool derfgre', __name__ == "__main__")
-
+def create_app(test=False):
     app = Flask(__name__)
-    app.config.from_object(Config)
-    print('test', app.config)
+    app_config = config.TestConfig if test else config.DevConfig
+    app.config.from_object(app_config)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{app.config["DB_USER"]}:{app.config["DB_PASSWORD"]}@{app.config["DB_HOST"]}/{app.config["DB_NAME"]}'
-    #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost:5432/logme'
-    #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@db/postgres'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    if test:
+        app.config["LOGIN_DISABLED"] = True
+        
     db.init_app(app)
+
     with app.app_context():
         #db.drop_all()
         db.create_all()
-    from app.sports.routes import sports_routes
-    from app.user.routes import user_routes
+
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    
+
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
     app.register_blueprint(sports_routes, url_prefix='/sports')
     app.register_blueprint(user_routes, url_prefix='/user')
+    app.register_blueprint(auth_routes, url_prefix='/auth')
 
     @app.route('/', methods=['GET'])
     def home():
-        return 'cool de f'
+        return 'Connected to the API'
 
     return app            
