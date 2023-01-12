@@ -47,7 +47,7 @@ jobs:
           push: true
           tags: | 
             ${{ steps.meta.outputs.tags }}
-            latest
+            apoppe/logme-backend-app:latest
       -
         name: Deploy on vps
         uses: appleboy/ssh-action@master
