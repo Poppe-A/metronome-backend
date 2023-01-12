@@ -58,4 +58,4 @@ jobs:
           USERNAME: ${{ secrets.SSH_USERNAME }}
           PORT: ${{ secrets.SSH_PORT }}
           KEY: ${{ secrets.SSH_KEY }}
-          script: cd ~/Projects/dockerTest; docker-compose pull; docker-compose up -d; docker image prune -af
+          script: cd ~/Projects/dockerTest; docker compose pull; docker compose up -d; docker image prune -af
