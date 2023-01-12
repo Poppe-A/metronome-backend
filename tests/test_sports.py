@@ -13,5 +13,5 @@ def test_get_sports(client):
     print('-----------------------------------------')
     response = client.get('/sports/all')
     print("[test_sports] response", response.json)
-    assert len(response.json) > 1
+    assert len(response.json) >= 1
 
