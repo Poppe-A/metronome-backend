@@ -33,4 +33,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            apoppe/logme-backend-app:latest
+            apoppe/logme-backend-app:1.0.1
