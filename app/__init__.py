@@ -40,6 +40,6 @@ def create_app(test=False):
 
     @app.route('/', methods=['GET'])
     def home():
-        return 'Connected to the API'
+        return 'Connected to the API - ye'
 
     return app            

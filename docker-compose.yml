@@ -1,12 +1,11 @@
 services:
   app:
-    build: ./
+    image: apoppe/logme-backend-app:v3
     ports:
       - 5000:5000
     working_dir: /app
-    command: python ./run.py
+    #command: python ./run.py
     volumes:
-      - ./:/app
     environment:
       DB_HOST: db
       DB_USER: postgres
