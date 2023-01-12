@@ -32,11 +32,6 @@ jobs:
       matrix:
         python-version: [3.8]
     steps:
-      - name: fail
-        run: exit 1
-        continue-on-error: false
-      - name: dont
-        run: echo shouldnt be here
       - uses: actions/checkout@master
       - name: Initialize Python 3.8
         uses: actions/setup-python@v1
