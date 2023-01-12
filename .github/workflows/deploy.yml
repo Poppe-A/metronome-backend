@@ -34,3 +34,12 @@ jobs:
           push: true
           tags: |
             apoppe/logme-backend-app:1.0.1
+      -
+        name: Deploy on vps
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          PORT: ${{ secrets.SSH_PORT }}
+          KEY: ${{ secrets.SSH_PASSWORD }}
+          script: cd ~/Projects/dockerTest; docker stop dockertest-db-1; docker stop dockertest-app-1; docker image rm apoppe/logme-backend-app:latest -f; docker compose up -d
