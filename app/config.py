@@ -18,7 +18,7 @@ class Config(object) :
 class TestConfig(Config):
     TESTING = True
     LOGIN_DISABLED = True
-    SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{os.getenv("DB_USER", "postgres")}:{os.getenv("DB_PASSWORD", "postgres")}@{os.getenv("DB_HOST", "localhost:5432")}/test_logme'
+    SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{os.getenv("DB_USER", "postgres")}:{os.getenv("DB_PASSWORD", "postgres")}@{os.getenv("DB_HOST", "localhost:5432")}/{os.getenv("DB_TEST_NAME", "postgres")}'
 
 class DevConfig(Config):
     DEBUG = True
