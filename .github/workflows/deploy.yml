@@ -41,5 +41,5 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           USERNAME: ${{ secrets.SSH_USERNAME }}
           PORT: ${{ secrets.SSH_PORT }}
-          KEY: ${{ secrets.SSH_PASSWORD }}
+          KEY: ${{ secrets.SSH_KEY }}
           script: cd ~/Projects/dockerTest; docker stop dockertest-db-1; docker stop dockertest-app-1; docker image rm apoppe/logme-backend-app:latest -f; docker compose up -d
