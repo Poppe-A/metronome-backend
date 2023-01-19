@@ -1,12 +1,4 @@
 import json
-from flask_login import current_user
-
-def test_login_required_user_not_logged(client):
-    print('-----------------------------------------')
-
-    print("[test_login_required_not_logged] - Should not access this route if not logged")
-    response = client.post('/auth/account1')
-    assert response.status_code == 405
 
 def test_signup(client):
     print('-----------------------------------------')
@@ -33,17 +25,26 @@ def test_login(client):
     print("[test_login] - ", "Should be able to log with previously created user", response.data)
     assert response.json['status'] == 200
 
+def test_login_required_user_not_logged(client):
+    print('-----------------------------------------')
+
+    print("[test_login_required_not_logged] - Should not access this route if not logged")
+    response = client.post('/auth/currentUser')
+    assert response.status_code == 405
+
+
 def test_login_current_user(client):
     data = {
         "email": "test@user.com",
         "password": "test"
     }
 
-    with client:
-        client.post('/auth/login', data=json.dumps(data))
-        # success
-        response = client.get('/auth/test')
-        print('[test_login_required_user_logged] - Should access protected route since user is logged')
-        print(response)
-        assert current_user.id == 1
-
+    result = client.post('/auth/login', data=json.dumps(data))
+    print('------ result', result.json["jwt"])
+    headers = {
+        'Authorization': f'Bearer {result.json["jwt"]}'
+    }
+    response = client.get('/auth/currentUser', headers=headers)
+    print('[test_login_required_user_logged] - Should access protected route since user is logged')
+    print(response.json["logged_in_as"])
+    assert response.json["logged_in_as"]["email"] == "test@user.com"
