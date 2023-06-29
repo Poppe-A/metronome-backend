@@ -1,11 +1,13 @@
 services:
   app:
-    image: apoppe/logme-backend-app:v3
+    image: apoppe/metronome-backend:v3
+    # build: 
+    #   context: ./
+    #   dockerfile: Dockerfile
     ports:
       - 5000:5000
     working_dir: /app
     #command: python ./run.py
-    volumes:
     environment:
       DB_HOST: db
       DB_USER: postgres
@@ -21,6 +23,6 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
     volumes:
-      - sport-postgres-data:/var/lib/postgresql/data
+      - metronome-backend-data:/var/lib/postgresql/data
 volumes:
-  sport-postgres-data:
+  metronome-backend-data:

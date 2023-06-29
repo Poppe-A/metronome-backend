@@ -1,8 +1,19 @@
 You can start this project with 
 
 - python venv :
+    Run: source v_env/bin/activate
     Install the requirements -> pip install -r requirements.txt
     In the root of the app -> python run.py
+    Server will run on port 5000 
+    DB will run on port 5234
 
 - Docker
     In the root of the app -> docker-compose up -d
+
+
+
+
+API :
+    /songs
+        /add POST
+        /all GET
